@@ -7,4 +7,5 @@ import java.util.List;
 public interface AdocaoRepository extends JpaRepository<Adocao, Long> {
     List<Adocao> findByTermoAssinado(boolean termoAssinado);
     boolean existsByAnimalId(Long animalId);
+    List<Adocao> findByAdotanteId(Long adotanteId);
 }

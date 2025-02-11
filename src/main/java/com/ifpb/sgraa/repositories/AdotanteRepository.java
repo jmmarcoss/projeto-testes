@@ -6,4 +6,5 @@ import java.util.Optional;
 
 public interface AdotanteRepository extends JpaRepository<Adotante, Long> {
     Optional<Adotante> findByCpf(String cpf);
+    boolean existsByCpf(String cpf);
 }
