@@ -17,8 +17,12 @@ public class Adotante {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String nome;
+
+    @Column(unique = true)
     private String cpf;
+
     private String endereco;
     private String contato;
 

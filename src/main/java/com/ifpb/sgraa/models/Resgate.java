@@ -4,15 +4,15 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TratamentoMedico {
+public class Resgate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,10 +20,12 @@ public class TratamentoMedico {
     @Temporal(TemporalType.DATE)
     private Date data;
 
-    private String medicacao;
-    private String procedimento;
+    private String local;
 
     @ManyToOne
-    @JoinColumn(name = "animal_id")
-    private Animal animal;
+    @JoinColumn(name = "voluntario_id")
+    private Voluntario voluntario;
+
+    @OneToMany(mappedBy = "resgate")
+    private List<Animal> animaisResgatados = new ArrayList<>();;
 }
