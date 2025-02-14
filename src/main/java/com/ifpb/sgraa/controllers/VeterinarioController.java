@@ -27,8 +27,10 @@ public class VeterinarioController {
   public ResponseEntity<TratamentoMedico> prescreverTratamento(
       @PathVariable Long veterinarioId,
       @PathVariable Long animalId,
-      @RequestParam List<String> medicacoes) {
-    TratamentoMedico tratamento = veterinarioService.prescreverTratamento(veterinarioId, animalId, medicacoes);
+      @RequestParam List<String> medicacoes,
+      @RequestParam String procedimento
+  ) {
+    TratamentoMedico tratamento = veterinarioService.prescreverTratamento(veterinarioId, animalId, medicacoes, procedimento);
     return ResponseEntity.ok(tratamento);
   }
 }

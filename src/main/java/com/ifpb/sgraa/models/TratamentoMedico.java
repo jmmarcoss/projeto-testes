@@ -20,8 +20,13 @@ public class TratamentoMedico {
   @Temporal(TemporalType.DATE)
   private Date data;
 
+  @ElementCollection
   private List<String> medicacoes;
   private String procedimento;
+
+  @ManyToOne
+  @JoinColumn(name = "veterinario_id")
+  private Veterinario veterinario;
 
   @ManyToOne
   @JoinColumn(name = "animal_id")

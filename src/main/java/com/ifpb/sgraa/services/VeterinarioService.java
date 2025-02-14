@@ -24,12 +24,12 @@ public class VeterinarioService {
     return veterinarioRepository.save(veterinario);
   }
 
-  public TratamentoMedico prescreverTratamento(Long veterinarioId, Long animalId, List<String> medicacoes) {
+  public TratamentoMedico prescreverTratamento(Long veterinarioId, Long animalId, List<String> medicacoes, String procedimento) {
     Veterinario veterinario = veterinarioRepository.findById(veterinarioId)
         .orElseThrow(() -> new RuntimeException("Veterinário não encontrado"));
     Animal animal = animalRepository.findById(animalId)
         .orElseThrow(() -> new RuntimeException("Animal não encontrado"));
 
-    return veterinario.prescreverTratamento(animal, medicacoes);
+    return veterinario.prescreverTratamento(animal, medicacoes, procedimento);
   }
 }

@@ -23,12 +23,16 @@ public class Veterinario {
 
   private String crm;
 
-  // TODO - Implementar no controller
-  public TratamentoMedico prescreverTratamento(Animal animal, List<String> medicacoes) {
+  @OneToMany(mappedBy = "veterinario")
+  private List<TratamentoMedico> tratamentos;
+
+  public TratamentoMedico prescreverTratamento(Animal animal, List<String> medicacoes, String procedimento) {
     TratamentoMedico tratamento = new TratamentoMedico();
     tratamento.setAnimal(animal);
     tratamento.setMedicacoes(medicacoes);
     tratamento.setData(new Date());
+    tratamento.setProcedimento(procedimento);
+    tratamento.setVeterinario(this);
     return tratamento;
   }
 
