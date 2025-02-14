@@ -2,9 +2,7 @@ package com.ifpb.sgraa.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.LocalDate;
-
+import java.util.Date;
 
 @Entity
 @Data
@@ -15,7 +13,9 @@ public class Adocao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate data;
+    @Temporal(TemporalType.DATE)
+    private Date data;
+
     private boolean termoAssinado;
 
     @OneToOne

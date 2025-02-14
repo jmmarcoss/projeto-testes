@@ -1,5 +1,6 @@
 package com.ifpb.sgraa.models;
 
+import com.ifpb.sgraa.enums.EspecieAnimal;
 import com.ifpb.sgraa.enums.StatusAdocao;
 import jakarta.persistence.*;
 import lombok.*;
@@ -7,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,20 +20,32 @@ public class Animal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String nome;
-    private String especie;
+
+    @Enumerated(EnumType.STRING)
+    private EspecieAnimal especie;
+
     private String raca;
-    private Integer idade;
+    private int idade;
 
     @Enumerated(EnumType.STRING)
     private StatusAdocao statusAdocao;
 
-    private LocalDate dataEntrada;
+    @Temporal(TemporalType.DATE)
+    private Date dataEntrada;
 
-    @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TratamentoMedico> tratamentos = new ArrayList<>();
 
     @OneToOne(mappedBy = "animal")
     private Adocao adocao;
+
+    @ManyToOne
+    @JoinColumn(name = "resgate_id")
+    private Resgate resgate;
+
+    @ManyToMany(mappedBy = "animaisAlimentados")
+    private List<Estoque> alimentos = new ArrayList<>();
 }
 
