@@ -1,11 +1,13 @@
 package com.ifpb.sgraa.models;
 
+import com.ifpb.sgraa.enums.StatusSolicitacao;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.ifpb.sgraa.enums.StatusAdocao;
@@ -29,17 +31,22 @@ public class Adotante {
   private String contato;
 
   @OneToMany(mappedBy = "adotante")
-  private List<Adocao> adocoes = new ArrayList<>();
+  private List<SolicitacaoAdocao> solicitacoes = new ArrayList<>();
 
-  public Adocao solicitarAdocao(Animal animal) {
-    if (animal.getStatusAdocao() == StatusAdocao.INDISPONIVEL)
-      return null;
-    Adocao adocao = new Adocao();
-    adocao.setAdotante(this);
-    adocao.setAnimal(animal);
-    animal.setStatusAdocao(StatusAdocao.SOLICITADO);
-    adocoes.add(adocao);
-    return adocao;
+  public SolicitacaoAdocao solicitarAdocao(Animal animal) {
+
+    if(animal.getStatusAdocao() == StatusAdocao.ADOTADO ||
+      animal.getStatusAdocao() == StatusAdocao.INDISPONIVEL
+    ) { return null; }
+
+    SolicitacaoAdocao solicitacao = new SolicitacaoAdocao();
+    solicitacao.setAnimal(animal);
+    solicitacao.setAdotante(this);
+    solicitacao.setDataSolicitacao(new Date());
+    solicitacao.setStatus(StatusSolicitacao.PENDENTE);
+    solicitacoes.add(solicitacao);
+
+    return solicitacao;
   }
 
   }

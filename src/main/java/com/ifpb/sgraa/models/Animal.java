@@ -43,15 +43,8 @@ public class Animal {
   @JoinColumn(name = "resgate_id")
   private Resgate resgate;
 
-  @ManyToMany(mappedBy = "animaisAlimentados")
-  private List<Estoque> alimentos = new ArrayList<>();
-
   public void atualizarStatus(StatusAdocao status) {
     this.statusAdocao = status;
-  }
-
-  public void registrarSaida() {
-    this.statusAdocao = StatusAdocao.ADOTADO;
   }
 
 }

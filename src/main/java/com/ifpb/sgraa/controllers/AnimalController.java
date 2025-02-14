@@ -24,7 +24,7 @@ public class AnimalController {
 
     @GetMapping
     public ResponseEntity<List<Animal>> listar() {
-        return ResponseEntity.ok(animalService.listAnimals());
+        return ResponseEntity.ok(animalService.listarAnimais());
     }
 
     @PatchMapping("/{id}/status")

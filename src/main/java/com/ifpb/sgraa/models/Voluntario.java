@@ -12,16 +12,24 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Voluntario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(nullable = false)
-    private String nome;
+  @Column(nullable = false)
+  private String nome;
 
-    private String contato;
-    private String funcao;
+  private String contato;
+  private String funcao;
 
-    @OneToMany(mappedBy = "voluntario")
-    private List<Resgate> resgates = new ArrayList<>();
+  public Resgate iniciarResgate(String local) {
+    Resgate resgate = new Resgate();
+    resgate.setLocal(local);
+    resgate.setVoluntario(this);
+    return resgate;
+  }
+
+  @OneToMany(mappedBy = "voluntario")
+  private List<Resgate> resgates = new ArrayList<>();
+
 }
