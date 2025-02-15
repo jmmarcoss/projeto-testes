@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,11 +19,11 @@ public class Abrigo {
     private Long id;
 
     @OneToMany
-    private List<Animal> animaisCadastrados;
+    private List<Animal> animaisCadastrados = new ArrayList<>();
     @OneToMany
-    private List<Voluntario> voluntariosAtivos;
+    private List<Voluntario> voluntariosAtivos = new ArrayList<>();
     @OneToMany
-    private List<Adocao> processosAdocao;
+    private List<Adocao> processosAdocao = new ArrayList<>();
 
     public void registrarAnimal(Animal novoAnimal) {
         animaisCadastrados.add(novoAnimal);

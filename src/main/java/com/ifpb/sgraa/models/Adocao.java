@@ -27,11 +27,17 @@ public class Adocao {
   @JoinColumn(name = "adotante_id")
   private Adotante adotante;
 
+  @ManyToOne
+  @JoinColumn(name = "abrigo_id")
+  private Abrigo abrigo;
+
   public void finalizarAdocao() {
     this.animal.atualizarStatus(StatusAdocao.ADOTADO);
+    abrigo.getProcessosAdocao().add(this);
   }
 
   public void cancelarAdocao() {
     this.animal.atualizarStatus(StatusAdocao.DISPONIVEL);
+    abrigo.getProcessosAdocao().remove(this);
   }
 }
