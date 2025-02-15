@@ -14,12 +14,24 @@ import java.util.List;
 @RequestMapping("/adotantes")
 @RequiredArgsConstructor
 public class AdotanteController {
+
     private final AdotanteService adotanteService;
 
     @PostMapping
-    public ResponseEntity<Adotante> cadastrar(@RequestBody Adotante adotante) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(adotanteService.cadastrarAdotante(adotante));
+    public ResponseEntity<?> cadastrar(@RequestBody Adotante adotante) {
+        try {
+            Adotante saved = adotanteService.cadastrarAdotante(adotante);
+            return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Adotante> buscarPorId(@PathVariable Long id) {
+        return adotanteService.buscarPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{id}/adocoes")
@@ -27,3 +39,4 @@ public class AdotanteController {
         return ResponseEntity.ok(adotanteService.listarAdocoes(id));
     }
 }
+
