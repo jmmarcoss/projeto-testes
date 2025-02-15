@@ -1,15 +1,14 @@
 {
   "info": {
-    "_postman_id": "d6b9a3c0-1a7a-4b6d-9f3a-8e6b0c9d1e2f",
-    "name": "SGRAA API",
+    "name": "API Abrigo Animal",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "Animais",
+      "name": "Doacoes",
       "item": [
         {
-          "name": "Cadastrar Animal",
+          "name": "Criar Doação",
           "request": {
             "method": "POST",
             "header": [
@@ -20,28 +19,60 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"nome\": \"Rex\",\n    \"especie\": \"CÃO\",\n    \"raca\": \"Vira-lata\",\n    \"idade\": 3,\n    \"statusAdocao\": \"DISPONIVEL\",\n    \"dataEntrada\": \"2024-02-11\"\n}"
+              "raw": "{\n  \"data\": \"2025-02-14\",\n  \"tipoItem\": \"Alimentos\",\n  \"quantidade\": 10\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/animais",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["animais"]
+              "raw": "{{base_url}}/doacoes",
+              "host": ["{{base_url}}"],
+              "path": ["doacoes"]
             }
           }
         },
         {
-          "name": "Listar Animais",
+          "name": "Listar Doações",
           "request": {
             "method": "GET",
-            "header": [],
             "url": {
-              "raw": "http://localhost:8080/animais",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["animais"]
+              "raw": "{{base_url}}/doacoes",
+              "host": ["{{base_url}}"],
+              "path": ["doacoes"]
+            }
+          }
+        },
+        {
+          "name": "Buscar Doação por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/doacoes/1",
+              "host": ["{{base_url}}"],
+              "path": ["doacoes", "1"]
+            }
+          }
+        },
+        {
+          "name": "Buscar Doações por Período",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/doacoes/periodo?inicio=2025-01-01&fim=2025-02-01",
+              "host": ["{{base_url}}"],
+              "path": ["doacoes", "periodo"],
+              "query": [
+                { "key": "inicio", "value": "2025-01-01" },
+                { "key": "fim", "value": "2025-02-01" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Excluir Doação",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/doacoes/1",
+              "host": ["{{base_url}}"],
+              "path": ["doacoes", "1"]
             }
           }
         }
@@ -60,22 +91,25 @@
                 "value": "application/json"
               }
             ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"adotanteId\": 1,\n  \"animalId\": 1\n}"
+            },
             "url": {
-              "raw": "http://localhost:8080/adocoes?adotanteId=1&animalId=1",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["adocoes"],
-              "query": [
-                {
-                  "key": "adotanteId",
-                  "value": "1"
-                },
-                {
-                  "key": "animalId",
-                  "value": "1"
-                }
-              ]
+              "raw": "{{base_url}}/adocoes",
+              "host": ["{{base_url}}"],
+              "path": ["adocoes"]
+            }
+          }
+        },
+        {
+          "name": "Cancelar Adoção",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/adocoes/1",
+              "host": ["{{base_url}}"],
+              "path": ["adocoes", "1"]
             }
           }
         }
@@ -96,14 +130,261 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"nome\": \"João Silva\",\n    \"cpf\": \"123.456.789-00\",\n    \"endereco\": \"Rua das Flores, 123\",\n    \"contato\": \"joao@email.com\"\n}"
+              "raw": "{\n  \"nome\": \"João Silva\",\n  \"cpf\": \"123.456.789-00\",\n  \"email\": \"joao@example.com\"\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/adotantes",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{base_url}}/adotantes",
+              "host": ["{{base_url}}"],
               "path": ["adotantes"]
+            }
+          }
+        },
+        {
+          "name": "Buscar Adotante por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/adotantes/1",
+              "host": ["{{base_url}}"],
+              "path": ["adotantes", "1"]
+            }
+          }
+        },
+        {
+          "name": "Listar Adoções do Adotante",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/adotantes/1/adocoes",
+              "host": ["{{base_url}}"],
+              "path": ["adotantes", "1", "adocoes"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Animais",
+      "item": [
+        {
+          "name": "Criar Animal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Rex\",\n  \"especie\": \"Cachorro\",\n  \"statusAdocao\": \"DISPONIVEL\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/animais",
+              "host": ["{{base_url}}"],
+              "path": ["animais"]
+            }
+          }
+        },
+        {
+          "name": "Listar Todos Animais",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/animais",
+              "host": ["{{base_url}}"],
+              "path": ["animais"]
+            }
+          }
+        },
+        {
+          "name": "Buscar Animal por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/animais/1",
+              "host": ["{{base_url}}"],
+              "path": ["animais", "1"]
+            }
+          }
+        },
+        {
+          "name": "Atualizar Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"ADOTADO\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/animais/1/status",
+              "host": ["{{base_url}}"],
+              "path": ["animais", "1", "status"]
+            }
+          }
+        },
+        {
+          "name": "Vincular Resgate",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "1"
+            },
+            "url": {
+              "raw": "{{base_url}}/animais/1/resgate",
+              "host": ["{{base_url}}"],
+              "path": ["animais", "1", "resgate"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Estoque",
+      "item": [
+        {
+          "name": "Registrar Entrada",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"item\": \"Ração\",\n  \"quantidade\": 100,\n  \"validade\": \"2024-12-31\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/estoque/1",
+              "host": ["{{base_url}}"],
+              "path": ["estoque", "1"]
+            }
+          }
+        },
+        {
+          "name": "Atualizar Quantidade",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{base_url}}/estoque/1?quantidade=50",
+              "host": ["{{base_url}}"],
+              "path": ["estoque", "1"],
+              "query": [
+                {
+                  "key": "quantidade",
+                  "value": "50"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Listar Alertas Validade",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/estoque/alertas-validade?dias=7",
+              "host": ["{{base_url}}"],
+              "path": ["estoque", "alertas-validade"],
+              "query": [
+                {
+                  "key": "dias",
+                  "value": "7"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Resgates",
+      "item": [
+        {
+          "name": "Registrar Resgate",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"local\": \"Rua Principal\",\n  \"descricao\": \"Animal encontrado ferido\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/resgates/1",
+              "host": ["{{base_url}}"],
+              "path": ["resgates", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Veterinários",
+      "item": [
+        {
+          "name": "Cadastrar Veterinário",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Dra. Maria\",\n  \"crmv\": \"12345\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/veterinarios",
+              "host": ["{{base_url}}"],
+              "path": ["veterinarios"]
+            }
+          }
+        },
+        {
+          "name": "Prescrever Tratamento",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/veterinarios/1/prescrever/1?medicacoes=Antibiótico&medicacoes=Analgésico&procedimento=Curativo",
+              "host": ["{{base_url}}"],
+              "path": ["veterinarios", "1", "prescrever", "1"],
+              "query": [
+                {
+                  "key": "medicacoes",
+                  "value": "Antibiótico"
+                },
+                {
+                  "key": "medicacoes",
+                  "value": "Analgésico"
+                },
+                {
+                  "key": "procedimento",
+                  "value": "Curativo"
+                }
+              ]
             }
           }
         }
@@ -124,18 +405,54 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"nome\": \"Maria Silva\",\n    \"contato\": \"maria@ong.org\",\n    \"funcao\": \"Resgate\"\n}"
+              "raw": "{\n  \"nome\": \"Carlos\",\n  \"disponibilidade\": \"Finais de semana\"\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/voluntarios",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "8080",
+              "raw": "{{base_url}}/voluntarios",
+              "host": ["{{base_url}}"],
               "path": ["voluntarios"]
+            }
+          }
+        },
+        {
+          "name": "Registrar Resgate",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"local\": \"Parque Central\",\n  \"descricao\": \"Resgate de gatinho\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/voluntarios/1/resgates",
+              "host": ["{{base_url}}"],
+              "path": ["voluntarios", "1", "resgates"]
+            }
+          }
+        },
+        {
+          "name": "Listar Resgates",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/voluntarios/1/resgates",
+              "host": ["{{base_url}}"],
+              "path": ["voluntarios", "1", "resgates"]
             }
           }
         }
       ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080"
     }
   ]
 }
