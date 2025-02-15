@@ -27,5 +27,10 @@ public class Resgate {
     private Voluntario voluntario;
 
     @OneToMany(mappedBy = "resgate")
-    private List<Animal> animaisResgatados = new ArrayList<>();;
+    private List<Animal> animaisResgatados = new ArrayList<>();
+
+    public void registrarResgate(Animal animal) {
+        animaisResgatados.add(animal);
+    }
+
 }
