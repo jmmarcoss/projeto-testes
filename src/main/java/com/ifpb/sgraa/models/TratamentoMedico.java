@@ -31,4 +31,5 @@ public class TratamentoMedico {
   @ManyToOne
   @JoinColumn(name = "animal_id")
   private Animal animal;
+
 }

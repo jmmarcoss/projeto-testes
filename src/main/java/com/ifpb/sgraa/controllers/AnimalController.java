@@ -28,6 +28,12 @@ public class AnimalController {
         return ResponseEntity.ok(animalService.listarAnimais());
     }
 
+    @GetMapping("/disponiveis")
+    public ResponseEntity<List<Animal>> listarAnimaisDisponiveis() {
+        List<Animal> animaisDisponiveis = animalService.buscarAnimaisPorStatus(StatusAdocao.DISPONIVEL);
+        return ResponseEntity.ok(animaisDisponiveis);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Animal> buscarPorId(@PathVariable Long id) {
         return animalService.buscarAnimalPorId(id)

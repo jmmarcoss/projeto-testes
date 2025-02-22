@@ -22,6 +22,10 @@ public class AnimalService {
     return animalRepository.save(animal);
   }
 
+  public List<Animal> buscarAnimaisPorStatus(StatusAdocao status) {
+    return animalRepository.findByStatusAdocao(status);
+  }
+
   public List<Animal> listarAnimais() {
     return animalRepository.findAll();
   }
