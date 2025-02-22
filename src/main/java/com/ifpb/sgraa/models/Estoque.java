@@ -1,5 +1,6 @@
 package com.ifpb.sgraa.models;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,7 @@ public class Estoque {
 
     @ManyToOne
     @JoinColumn(name = "doacao_id")
+    @Column(nullable = false)
     private Doacao doacao;
 
     @ManyToMany
